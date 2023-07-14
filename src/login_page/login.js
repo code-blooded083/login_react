@@ -7,25 +7,33 @@ import linkedin from "./linkedin.png"
 import mailLogo from "./mail-logo.png"
 import myLogo from "./my-logo.png"
 import passLogo from "./pass-logo.png"
-
+import axios from "axios"
 const Login = () => {
  
 const[formValue,setFormValue]=useState({email:"", password:""})
 const handleInput=(e)=>{
   const{name,value}=e.target;
   setFormValue({...formValue,[name]:value});
+ 
   // console.log(formValue);
 }
 const handleFormSubmit=(e)=>{
   e.preventDefault();
-  // console.log(formValue)
-  fetch("https://be-infollion.vercel.app/api/v1/users/login",{
-    method: "POST",
-   headers: {},
-    body:'{"username":"roope.sh@simplifii.com","password":"12341a7899A@"}'
-  }).then(res=>res.json()).then(res=>{
-    console.log(res)
-  })
+  console.log(formValue)
+  axios.post("https://be-infollion.vercel.app/api/v1/users/login", {
+    "username":formValue.email,
+    "password":formValue.password
+  }).then(res=>console.log(res)).catch(err=>console.log(err))
+  // fetch("https://be-infollion.vercel.app/api/v1/users/login",{
+  //   method: "POST",
+  //  headers: {},
+  //   body:{
+  //     username:JSON.stringify(formValue.email),
+  //     password:JSON.stringify(formValue.password)
+  //   }
+  // }).then(res=>res.json()).then(res=>{
+  //   console.log(res)
+  // })
 
 
 }
